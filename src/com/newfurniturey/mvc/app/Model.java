@@ -30,7 +30,7 @@ public abstract class Model {
 	/**
 	 * Initializes the model's database schema, if it doesn't already exist.
 	 */
-	abstract public void bootstrap();
+	abstract public void bootstrap() throws InvalidDatabaseException;
 	
 	/**
 	 * Checks if a table exists in the current database or not.
@@ -38,12 +38,12 @@ public abstract class Model {
 	 * @param String tableName	Name of the table to check for.
 	 * @return boolean			true if the table exists; otherwise false
 	 */
-	protected boolean _tableExists(String tableName) {
+	protected boolean _tableExists(String tableName) throws InvalidDatabaseException {
+		if (this._connection == null) {
+			throw new InvalidDatabaseException();
+		}
+		
 		try {
-			if ((this._connection == null) || !this._connection.isValid(3)) {
-				return false;
-			}
-			
 			DatabaseMetaData meta = this._connection.getMetaData();
 			ResultSet rs = meta.getTables(null, null, "%", null);
 			while (rs.next()) {
@@ -53,8 +53,9 @@ public abstract class Model {
 			}
 		} catch (SQLException e) {
 			System.err.println("Failed to pull metadata from db: " + e.getMessage());
-		} finally {
 			return false;
 		}
+		
+		return false;
 	}
 }
