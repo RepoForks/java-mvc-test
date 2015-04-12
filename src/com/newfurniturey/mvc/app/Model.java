@@ -1,6 +1,9 @@
 package com.newfurniturey.mvc.app;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public abstract class Model {
 	/**
@@ -27,6 +30,31 @@ public abstract class Model {
 	/**
 	 * Initializes the model's database schema, if it doesn't already exist.
 	 */
-	public void bootstrap();
+	abstract public void bootstrap();
 	
+	/**
+	 * Checks if a table exists in the current database or not.
+	 *
+	 * @param String tableName	Name of the table to check for.
+	 * @return boolean			true if the table exists; otherwise false
+	 */
+	protected boolean _tableExists(String tableName) {
+		try {
+			if ((this._connection == null) || !this._connection.isValid(3)) {
+				return false;
+			}
+			
+			DatabaseMetaData meta = this._connection.getMetaData();
+			ResultSet rs = meta.getTables(null, null, "%", null);
+			while (rs.next()) {
+				if (rs.getString(3).equals(tableName)) {
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("Failed to pull metadata from db: " + e.getMessage());
+		} finally {
+			return false;
+		}
+	}
 }
