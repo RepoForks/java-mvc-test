@@ -6,10 +6,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class App {
-    private static String DB_NAME = "anime.sqlite";
+	private static String DB_NAME = "anime.sqlite";
 	
 	public static boolean bootstrap() throws ClassNotFoundException {
-        Class.forName("org.sqlite.JDBC");
+		Class.forName("org.sqlite.JDBC");
 		
 		Connection connection = null;
 		try {
@@ -24,14 +24,14 @@ public class App {
 			System.out.println("sql error: " + e.getMessage());
 			return false;
 		} finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("failed to close the connection: " + e.getMessage());
-            }
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				System.err.println("failed to close the connection: " + e.getMessage());
+			}
 		}
 	}
-	
+
 }
