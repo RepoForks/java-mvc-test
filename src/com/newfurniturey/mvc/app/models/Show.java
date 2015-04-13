@@ -54,6 +54,11 @@ public class Show extends Model {
 	
 	protected Model _newFromResultSet(ResultSet item) throws SQLException {
 		return new ShowBuilder(this._connection)
+			.id(item.getInt("id"))
+			.name(item.getString("name"))
+			.imageUrl(item.getString("image_url"))
+			.rating(item.getDouble("rating"))
+			.description(item.getString("description"))
 			.build();
 	}
 	
