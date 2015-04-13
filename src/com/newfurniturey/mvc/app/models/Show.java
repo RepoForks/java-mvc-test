@@ -24,11 +24,11 @@ public class Show extends Model {
 		private double rating = 0.0;
 		private String description = "";
 		public ShowBuilder(Connection connection) { conn = connection; }
-		public ShowBuilder id(int data) { _id = data; return this; }
-		public ShowBuilder name(String data) { _name = data; return this; }
-		public ShowBuilder imageUrl(String data) { _imageUrl = data; return this; }
-		public ShowBuilder rating(double data) { _rating = data; return this; }
-		public ShowBuilder description(String data) { _description = data; return this; }
+		public ShowBuilder id(int data) { id = data; return this; }
+		public ShowBuilder name(String data) { name = data; return this; }
+		public ShowBuilder imageUrl(String data) { imageUrl = data; return this; }
+		public ShowBuilder rating(double data) { rating = data; return this; }
+		public ShowBuilder description(String data) { description = data; return this; }
 		public Model build() { return new Show(this); }
 	}
 	
@@ -37,6 +37,7 @@ public class Show extends Model {
 	}
 	
 	public Show(ShowBuilder builder) {
+		this._connection = builder.conn;
 		this._id = builder.id;
 		this._name = builder.name;
 		this._imageUrl = builder.imageUrl;
