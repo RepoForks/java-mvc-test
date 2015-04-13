@@ -10,15 +10,38 @@ import java.sql.Statement;
 public class Show extends Model {
 	protected String _tableName = "shows";
 	protected String _primaryKey = "id";
+	private int _id;
+	private String _name;
+	private String _imageUrl;
+	private double _rating;
+	private String _description;
 	
 	public class ShowBuilder {
-		private Model instance = null;
-		public ShowBuilder() { instance = new Show(Show.this._connection); }
-		public Model build() { return instance; }
+		private Connection conn = null;
+		private int id = -1;
+		private String name = "";
+		private String imageUrl = "";
+		private double rating = 0.0;
+		private String description = "";
+		public ShowBuilder(Connection connection) { conn = connection; }
+		public ShowBuilder id(int data) { _id = data; return this; }
+		public ShowBuilder name(String data) { _name = data; return this; }
+		public ShowBuilder imageUrl(String data) { _imageUrl = data; return this; }
+		public ShowBuilder rating(double data) { _rating = data; return this; }
+		public ShowBuilder description(String data) { _description = data; return this; }
+		public Model build() { return new Show(this); }
 	}
 	
 	public Show(Connection conn) {
 		super(conn);
+	}
+	
+	public Show(ShowBuilder builder) {
+		this._id = builder.id;
+		this._name = builder.name;
+		this._imageUrl = builder.imageUrl;
+		this._rating = builder.rating;
+		this._description = builder.description;
 	}
 	
 	public String getTableName() {
@@ -29,10 +52,25 @@ public class Show extends Model {
 		return this._primaryKey;
 	}
 	
-	protected Model _newFromResultSet(ResultSet item) {
-		return new ShowBuilder()
+	protected Model _newFromResultSet(ResultSet item) throws SQLException {
+		return new ShowBuilder(this._connection)
 			.build();
 	}
+	
+	public int getId() { return this._id; }
+	private void setId(int id) { this._id = id; }
+	
+	public String getName() { return this._name; }
+	private void setName(String name) { this._name = name; }
+	
+	public String getImageUrl() { return this._imageUrl; }
+	private void setImageUrl(String url) { this._imageUrl = url; }
+	
+	public double getRating() { return this._rating; }
+	private void setRating(double rating) { this._rating = rating; }
+	
+	public String getDescription() { return this._description; }
+	private void setDescription(String desc) { this._description = desc; }
 	
 	public void bootstrap() throws InvalidDatabaseException {
 		if (this._tableExists(this._tableName)) {
