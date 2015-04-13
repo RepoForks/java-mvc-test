@@ -3,15 +3,35 @@ package com.newfurniturey.mvc.app.models;
 import com.newfurniturey.mvc.app.Model;
 import com.newfurniturey.mvc.app.InvalidDatabaseException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Show extends Model {
-	
 	protected String _tableName = "shows";
+	protected String _primaryKey = "id";
+	
+	public class ShowBuilder {
+		private Model instance = null;
+		public ShowBuilder() { instance = new Show(Show.this._connection); }
+		public Model build() { return instance; }
+	}
 	
 	public Show(Connection conn) {
 		super(conn);
+	}
+	
+	public String getTableName() {
+		return this._tableName;
+	}
+	
+	public String getPrimaryKey() {
+		return this._primaryKey;
+	}
+	
+	protected Model _newFromResultSet(ResultSet item) {
+		return new ShowBuilder()
+			.build();
 	}
 	
 	public void bootstrap() throws InvalidDatabaseException {
