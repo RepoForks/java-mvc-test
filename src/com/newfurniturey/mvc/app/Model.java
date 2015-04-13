@@ -56,7 +56,7 @@ public abstract class Model {
 	 * @param ResultSet item	Database result to populate the instance.
 	 * @return Model			Instance of the item created.
 	 */
-	abstract protected Model _newFromResultSet(ResultSet item);
+	abstract protected Model _newFromResultSet(ResultSet item) throws SQLException;
 	
 	/**
 	 * Returns a full recordset of all items from the current table.
