@@ -7,7 +7,7 @@ public class Program {
 	public static void main(String[] args) {
 		try {
 			if (App.bootstrap()) {
-				// @todo do stuff!
+				(new App()).run();
 			}
 		} catch (ClassNotFoundException e) {
 			System.err.println("app error: " + e.getMessage());
