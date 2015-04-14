@@ -15,6 +15,10 @@ public class ShowTable extends AbstractTableModel {
 		data = shows;
 	}
 	
+	public void setShows(List<Model> shows) {
+		data = shows;
+	}
+	
 	public int getColumnCount() {
 		return columnNames.length;
 	}

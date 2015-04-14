@@ -19,6 +19,7 @@ public class ShowsList extends View {
 	
 	protected ShowTable _dataTable;
 	protected JButton _searchButton;
+	protected JTextField _searchField;
 	
 	public ShowsList() {
 		super();
@@ -28,6 +29,7 @@ public class ShowsList extends View {
 		
 		// create the button now so we can attach listeners to it
 		this._searchButton = new JButton("Search");
+        this._searchField = new JTextField();
 	}
 	
 	@Override
@@ -59,6 +61,10 @@ public class ShowsList extends View {
 		_searchButton.addActionListener(listener);
 	}
 	
+	public String getSearchQuery() {
+		return this._searchField.getText();
+	}
+	
 	public void setShowList(ShowTable data) {
 		this._dataTable = data;
 	}
@@ -77,8 +83,7 @@ public class ShowsList extends View {
 		panel.setLayout(new BorderLayout());
 		
 		// add the search box / button
-        JTextField searchField = new JTextField();
-        panel.add(searchField, BorderLayout.CENTER);
+        panel.add(this._searchField, BorderLayout.CENTER);
         panel.add(this._searchButton, BorderLayout.EAST);
 		
 		return panel;
