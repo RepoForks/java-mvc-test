@@ -4,6 +4,7 @@ import com.newfurniturey.mvc.app.View;
 import com.newfurniturey.mvc.app.models.table.ShowTable;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,12 +18,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class ShowsList extends View {
 	
 	protected ShowTable _dataTable;
+	protected JButton _searchButton;
 	
 	public ShowsList() {
 		super();
 		this._defaultWidth = 800;
 		this._defaultHeight = 600;
 		_title = "Shows";
+		
+		// create the button now so we can attach listeners to it
+		this._searchButton = new JButton("Search");
 	}
 	
 	@Override
@@ -49,6 +54,11 @@ public class ShowsList extends View {
 		// @todo implement
 	}
 	
+	public void addSearchActionListener(ActionListener listener) {
+		if (this._searchButton == null) return;
+		_searchButton.addActionListener(listener);
+	}
+	
 	public void setShowList(ShowTable data) {
 		this._dataTable = data;
 	}
@@ -69,9 +79,7 @@ public class ShowsList extends View {
 		// add the search box / button
         JTextField searchField = new JTextField();
         panel.add(searchField, BorderLayout.CENTER);
-
-        JButton searchButton = new JButton("Search");
-        panel.add(searchButton, BorderLayout.EAST);
+        panel.add(this._searchButton, BorderLayout.EAST);
 		
 		return panel;
 	}
