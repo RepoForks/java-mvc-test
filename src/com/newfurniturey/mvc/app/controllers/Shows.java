@@ -26,12 +26,6 @@ public class Shows extends Controller {
 		try {
 			connection = App.getConnection();
 			_shows = (new Show(connection)).findAll();
-			
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					_render();
-				}
-			});
 		} catch (InvalidDatabaseException e) {
 			System.out.println("invalid database =[");
 		} catch (SQLException e) {
@@ -40,8 +34,20 @@ public class Shows extends Controller {
 			App.close();
 		}
 	}
+    
+    public void display() {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                _render();
+            }
+        });
+    }
+    
+    public void addMore() {
+        App.addNewShow();
+    }
 	
-	public void actionPerformed(ActionEvent e) {
+	public void searchQuery() {
 		final String query = this._showsListView.getSearchQuery().toLowerCase();
 		Predicate<Model> criteria = s ->
             ((Show)s).getName().toLowerCase().contains(query)
@@ -52,9 +58,14 @@ public class Shows extends Controller {
         );
 	}
 	
+    public void actionPerformed(ActionEvent e) {
+        // do nothing... so far
+    }
+    
 	private void _render() {
 		this._showsListView = new ShowsList();
-		this._showsListView.addSearchActionListener(this);
+		this._showsListView.addSearchActionListener((ActionEvent e) -> searchQuery());
+		this._showsListView.addAddMoreActionListener((ActionEvent e) -> addMore());
 		this._showTable = new ShowTable(this._shows);
 		this._showsListView.setShowList(this._showTable);
 		this._showsListView.render().setVisible(true);

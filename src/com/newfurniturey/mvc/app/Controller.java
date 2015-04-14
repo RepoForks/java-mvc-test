@@ -12,4 +12,8 @@ public abstract class Controller implements ActionListener {
 	 */
 	abstract public void actionPerformed(ActionEvent e);
 	
+    /**
+     * Tells the controller to display any attached View.
+     */
+    abstract public void display();
 }
