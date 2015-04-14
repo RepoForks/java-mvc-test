@@ -5,7 +5,7 @@ import java.util.Observer;
 
 public abstract class View implements Observer {
 	
-    public void update(Observable observable, Object object) {
+	public void update(Observable observable, Object object) {
 		// empty override
 	}
 	
