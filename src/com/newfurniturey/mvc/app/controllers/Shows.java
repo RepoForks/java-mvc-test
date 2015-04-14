@@ -5,6 +5,7 @@ import com.newfurniturey.mvc.app.Controller;
 import com.newfurniturey.mvc.app.InvalidDatabaseException;
 import com.newfurniturey.mvc.app.Model;
 import com.newfurniturey.mvc.app.models.Show;
+import com.newfurniturey.mvc.app.models.table.ShowTable;
 import com.newfurniturey.mvc.app.View;
 import com.newfurniturey.mvc.app.views.ShowsList;
 import java.awt.EventQueue;
@@ -21,7 +22,7 @@ public class Shows extends Controller {
 			connection = App.getConnection();
 			
 			System.out.println("=== findAll ===");
-			List<Model> shows = (new Show(connection)).findAll();
+			final List<Model> shows = (new Show(connection)).findAll();
 			for (Model item : shows) {
 				Show show = (Show)item;
 				System.out.println("[show] " + show.getName());
@@ -35,7 +36,9 @@ public class Shows extends Controller {
 			
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-					View view = new ShowsList();
+					ShowsList view = new ShowsList();
+					ShowTable showTable = new ShowTable(shows);
+					view.setShowList(showTable);
 					view.render().setVisible(true);
 				}
 			});
