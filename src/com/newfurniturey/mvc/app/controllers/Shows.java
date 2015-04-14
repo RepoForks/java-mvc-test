@@ -11,6 +11,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -22,17 +23,8 @@ public class Shows extends Controller {
 	private ShowTable _showTable;
 	
 	public Shows() {
-		Connection connection = null;
-		try {
-			connection = App.getConnection();
-			_shows = (new Show(connection)).findAll();
-		} catch (InvalidDatabaseException e) {
-			System.out.println("invalid database =[");
-		} catch (SQLException e) {
-			System.out.println("sql error: " + e.getMessage());
-		} finally {
-			App.close();
-		}
+        this._shows = new ArrayList<>();
+		this.refresh();
 	}
     
     public void display() {
@@ -41,6 +33,28 @@ public class Shows extends Controller {
                 _render();
             }
         });
+    }
+    
+    public void refresh() {
+		Connection connection = null;
+		try {
+			connection = App.getConnection();
+            this._shows.clear();
+			for (Model show : (new Show(connection)).findAll()) {
+                this._shows.add(show);
+                System.out.println("adding: " + ((Show)show).getName());
+            }
+            
+            if (this._showTable != null) {
+                this._showTable.setShows(this._shows);
+            }
+		} catch (InvalidDatabaseException e) {
+			System.out.println("invalid database =[");
+		} catch (SQLException e) {
+			System.out.println("sql error: " + e.getMessage());
+		} finally {
+			App.close();
+		}
     }
     
     public void addMore() {

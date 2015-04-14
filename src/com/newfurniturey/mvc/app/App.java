@@ -26,6 +26,10 @@ public class App {
         _addShow = new AddShow();
         _addShow.display();
     }
+    
+    public static void refreshList() {
+        ((Shows)_shows).refresh();
+    }
 	
 	/**
 	 * Establishes and returns a database connection.

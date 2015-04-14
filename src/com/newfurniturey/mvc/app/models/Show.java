@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import javax.swing.ImageIcon;
 
@@ -47,6 +48,21 @@ public class Show extends Model {
 		this._rating = builder.rating;
 		this._description = builder.description;
 	}
+    
+    public boolean save() {
+		try {
+			PreparedStatement statement = this._connection.prepareStatement("INSERT INTO shows (name, rating, description, image_url) VALUES (?, ?, ?, ?);");
+            statement.setString(1, this._name);
+            statement.setDouble(2, this._rating);
+            statement.setString(3, this._description);
+            statement.setString(4, this._imageUrl);
+			statement.executeUpdate();
+            return true;
+		} catch (SQLException e) {
+			System.err.println("Failed to create table: " + this._tableName);
+		}
+        return false;
+    }
 	
 	public String getTableName() {
 		return this._tableName;

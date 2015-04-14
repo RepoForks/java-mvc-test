@@ -17,6 +17,7 @@ public class ShowTable extends AbstractTableModel {
 	
 	public void setShows(List<Model> shows) {
 		data = shows;
+        this.fireTableDataChanged();
 	}
 	
 	public int getColumnCount() {

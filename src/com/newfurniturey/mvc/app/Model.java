@@ -51,6 +51,11 @@ public abstract class Model extends Observable {
 	 */
 	abstract public String getPrimaryKey();
 	
+    /**
+     * Saves the current model to the database.
+     */
+    abstract public boolean save();
+    
 	/**
 	 * Creates a new Model instance from data found in the database.
 	 *
