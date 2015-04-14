@@ -52,6 +52,7 @@ public class ShowsList extends View {
 	
 	protected JScrollPane _createDataTable() {
 		JTable table = new JTable(_dataTable);
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		return new JScrollPane(table);
 	}
 	
