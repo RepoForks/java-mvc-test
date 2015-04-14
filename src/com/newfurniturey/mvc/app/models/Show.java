@@ -63,20 +63,50 @@ public class Show extends Model {
 			.build();
 	}
 	
-	public int getId() { return this._id; }
-	private void setId(int id) { this._id = id; }
+	public int getId() {
+		return this._id;
+	}
 	
-	public String getName() { return this._name; }
-	private void setName(String name) { this._name = name; }
+	private void setId(int id) {
+		this._id = id;
+		notifyObservers(this._id);
+	}
 	
-	public String getImageUrl() { return this._imageUrl; }
-	private void setImageUrl(String url) { this._imageUrl = url; }
+	public String getName() {
+		return this._name;
+	}
 	
-	public double getRating() { return this._rating; }
-	private void setRating(double rating) { this._rating = rating; }
+	private void setName(String name) {
+		this._name = name;
+		notifyObservers(this._name);
+	}
 	
-	public String getDescription() { return this._description; }
-	private void setDescription(String desc) { this._description = desc; }
+	public String getImageUrl() {
+		return this._imageUrl;
+	}
+	
+	private void setImageUrl(String url) {
+		this._imageUrl = url;
+		notifyObservers(this._imageUrl);
+	}
+	
+	public double getRating() {
+		return this._rating;
+	}
+	
+	private void setRating(double rating) {
+		this._rating = rating;
+		notifyObservers(this._rating);
+	}
+	
+	public String getDescription() {
+		return this._description;
+	}
+	
+	private void setDescription(String desc) {
+		this._description = desc;
+		notifyObservers(this._description);
+	}
 	
 	public void bootstrap() throws InvalidDatabaseException {
 		if (this._tableExists(this._tableName)) {
