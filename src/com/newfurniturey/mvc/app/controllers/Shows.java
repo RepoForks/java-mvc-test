@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class Shows extends Controller {
 	
 	private List<Model> _shows;
-	private List<Model> _filtered;
 	private ShowsList _showsListView;
 	private ShowTable _showTable;
 	
@@ -29,21 +28,12 @@ public class Shows extends Controller {
 		try {
 			connection = App.getConnection();
 			_shows = (new Show(connection)).findAll();
-			_filtered = new ArrayList<>(_shows);
-			
-			// debug output
-			System.out.println("=== findAll ===");
-			for (Model item : _shows) {
-				Show show = (Show)item;
-				System.out.println("[show] " + show.getName());
-			}
 			
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					_render();
 				}
 			});
-			
 		} catch (InvalidDatabaseException e) {
 			System.out.println("invalid database =[");
 		} catch (SQLException e) {
@@ -55,21 +45,19 @@ public class Shows extends Controller {
 	
 	public void actionPerformed(ActionEvent e) {
 		final String query = this._showsListView.getSearchQuery().toLowerCase();
-		Predicate<Model> criteria = s -> ((Show)s).getName().toLowerCase().contains(query) || ((Show)s).getDescription().toLowerCase().contains(query);
-		this._filtered = this._shows.stream().filter(criteria).collect(Collectors.toList());
-		this._showTable.setShows(this._filtered);
+		Predicate<Model> criteria = s ->
+            ((Show)s).getName().toLowerCase().contains(query)
+            || ((Show)s).getDescription().toLowerCase().contains(query);
 
-		System.out.println("=== search: " + query + " ===");
-		for (Model item : this._filtered) {
-			Show show = (Show)item;
-			System.out.println("[show] " + show.getName());
-		}
+		this._showTable.setShows(
+            this._shows.stream().filter(criteria).collect(Collectors.toList())
+        );
 	}
 	
 	private void _render() {
 		this._showsListView = new ShowsList();
 		this._showsListView.addSearchActionListener(this);
-		this._showTable = new ShowTable(this._filtered);
+		this._showTable = new ShowTable(this._shows);
 		this._showsListView.setShowList(this._showTable);
 		this._showsListView.render().setVisible(true);
 	}
