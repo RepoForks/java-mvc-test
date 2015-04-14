@@ -1,5 +1,6 @@
 package com.newfurniturey.mvc.app;
 
+import com.newfurniturey.mvc.app.controllers.AddShow;
 import com.newfurniturey.mvc.app.controllers.Shows;
 import com.newfurniturey.mvc.app.models.Show;
 import java.sql.Connection;
@@ -10,15 +11,21 @@ import java.util.List;
 public class App {
 	public static final String DB_NAME = "anime.sqlite";
 	private static Connection _connection = null;
-	
+	private static Controller _shows = null;
+    private static Controller _addShow = null;
+    
 	/**
 	 * The main entry-point in the MVC Application test.
 	 */
 	public void run() {
-		
-		Controller shows = new Shows();
-		
+		_shows = new Shows();
+        _shows.display();
 	}
+    
+    public static void addNewShow() {
+        _addShow = new AddShow();
+        _addShow.display();
+    }
 	
 	/**
 	 * Establishes and returns a database connection.
