@@ -70,16 +70,11 @@ public class Show extends Model {
 		return this._id;
 	}
 	
-	private void setId(int id) {
-		this._id = id;
-		notifyObservers(this._id);
-	}
-	
 	public String getName() {
 		return this._name;
 	}
 	
-	private void setName(String name) {
+	public void setName(String name) {
 		this._name = name;
 		notifyObservers(this._name);
 	}
@@ -88,7 +83,7 @@ public class Show extends Model {
 		return this._imageUrl;
 	}
 	
-	private void setImageUrl(String url) {
+	public void setImageUrl(String url) {
 		this._imageUrl = url;
 		notifyObservers(this._imageUrl);
 	}
@@ -108,7 +103,7 @@ public class Show extends Model {
 		return this._rating;
 	}
 	
-	private void setRating(double rating) {
+	public void setRating(double rating) {
 		this._rating = rating;
 		notifyObservers(this._rating);
 	}
@@ -117,7 +112,7 @@ public class Show extends Model {
 		return this._description;
 	}
 	
-	private void setDescription(String desc) {
+	public void setDescription(String desc) {
 		this._description = desc;
 		notifyObservers(this._description);
 	}

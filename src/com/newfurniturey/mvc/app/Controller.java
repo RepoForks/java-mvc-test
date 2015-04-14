@@ -1,6 +1,5 @@
 package com.newfurniturey.mvc.app;
 
-import com.newfurniturey.mvc.app.models.Show;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
