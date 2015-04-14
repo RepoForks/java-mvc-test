@@ -57,6 +57,8 @@ public class ShowsList extends View {
 		JTable table = new JTable(_dataTable);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		table.getColumnModel().getColumn(0).setCellRenderer(new VariableRowHeightRenderer());
+		table.getColumnModel().getColumn(0).setMaxWidth(220);
+		table.getColumnModel().getColumn(0).setPreferredWidth(220);
 		return new JScrollPane(table);
 	}
 	
