@@ -16,30 +16,24 @@ import java.util.List;
 
 public class Shows extends Controller {
 	
+	private List<Model> _shows;
+	
 	public Shows() {
 		Connection connection = null;
 		try {
 			connection = App.getConnection();
+			_shows = (new Show(connection)).findAll();
 			
+			// debug output
 			System.out.println("=== findAll ===");
-			final List<Model> shows = (new Show(connection)).findAll();
-			for (Model item : shows) {
+			for (Model item : _shows) {
 				Show show = (Show)item;
 				System.out.println("[show] " + show.getName());
 			}
 			
-			System.out.println("\n\n=== findById ===");
-			Model show = (new Show(connection)).findById(3);
-			System.out.println("[show] " + ((Show)show).getName());
-			
-			// -------------
-			
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-					ShowsList view = new ShowsList();
-					ShowTable showTable = new ShowTable(shows);
-					view.setShowList(showTable);
-					view.render().setVisible(true);
+					_render();
 				}
 			});
 			
@@ -54,6 +48,14 @@ public class Shows extends Controller {
 	
 	public void actionPerformed(ActionEvent e) {
 		// @todo implement listener
+		System.out.println("[shows] Action performed!");
 	}
 	
+	private void _render() {
+		ShowsList view = new ShowsList();
+		view.addSearchActionListener(this);
+		ShowTable showTable = new ShowTable(this._shows);
+		view.setShowList(showTable);
+		view.render().setVisible(true);
+	}
 }
