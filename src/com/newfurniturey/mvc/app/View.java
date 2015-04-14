@@ -13,6 +13,7 @@ public abstract class View implements Observer {
 	protected int _defaultWidth;
 	protected int _defaultHeight;
 	protected String _title;
+    protected WindowAdapter _closeListener;
 	
 	public View() {
 		this._defaultWidth = 640;
@@ -32,7 +33,8 @@ public abstract class View implements Observer {
 	
 	private void _configureFrame(JFrame frame) {
 		// setup the close listener
-		frame.addWindowListener(new CloseListener());	
+        this._closeListener = new CloseListener();
+		frame.addWindowListener(_closeListener);
 		
 		// size it up
 		frame.setSize(this._defaultWidth, this._defaultHeight);
