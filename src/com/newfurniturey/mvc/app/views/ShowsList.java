@@ -8,6 +8,8 @@ public class ShowsList extends View {
 	
 	public ShowsList() {
 		super();
+		this._defaultWidth = 800;
+		this._defaultHeight = 600;
 		_title = "Shows";
 	}
 	
