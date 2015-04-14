@@ -3,13 +3,16 @@ package com.newfurniturey.mvc.app.views;
 import com.newfurniturey.mvc.app.View;
 import com.newfurniturey.mvc.app.models.table.ShowTable;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.util.Observable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class ShowsList extends View {
 	
@@ -53,6 +56,7 @@ public class ShowsList extends View {
 	protected JScrollPane _createDataTable() {
 		JTable table = new JTable(_dataTable);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
+		table.getColumnModel().getColumn(0).setCellRenderer(new VariableRowHeightRenderer());
 		return new JScrollPane(table);
 	}
 	
@@ -68,5 +72,13 @@ public class ShowsList extends View {
         panel.add(searchButton, BorderLayout.EAST);
 		
 		return panel;
+	}
+	
+	class VariableRowHeightRenderer extends DefaultTableCellRenderer {
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			table.setRowHeight(row, ((ImageIcon)value).getIconHeight());
+			setIcon((ImageIcon)value);
+			return this;
+		}
 	}
 }
