@@ -20,6 +20,7 @@ public class ShowsList extends View {
 	protected ShowTable _dataTable;
 	protected JButton _searchButton;
 	protected JTextField _searchField;
+	protected JButton _addMoreButton;
 	
 	public ShowsList() {
 		super();
@@ -27,9 +28,10 @@ public class ShowsList extends View {
 		this._defaultHeight = 600;
 		_title = "Shows";
 		
-		// create the button now so we can attach listeners to it
+		// create the buttons now so we can attach listeners to it
 		this._searchButton = new JButton("Search");
         this._searchField = new JTextField();
+		this._addMoreButton = new JButton("+ Add");
 	}
 	
 	@Override
@@ -48,6 +50,9 @@ public class ShowsList extends View {
 		JScrollPane dataPane = this._createDataTable();
 		panel.add(dataPane, BorderLayout.CENTER);
 		
+		JPanel addMorePanel = this._createAddMorePanel();
+		panel.add(addMorePanel, BorderLayout.SOUTH);
+		
 		return frame;
 	}
 	
@@ -57,10 +62,13 @@ public class ShowsList extends View {
 	}
 	
 	public void addSearchActionListener(ActionListener listener) {
-		if (this._searchButton == null) return;
 		_searchButton.addActionListener(listener);
 	}
 	
+	public void addAddMoreActionListener(ActionListener listener) {
+		_addMoreButton.addActionListener(listener);
+	}
+
 	public String getSearchQuery() {
 		return this._searchField.getText();
 	}
@@ -86,6 +94,13 @@ public class ShowsList extends View {
         panel.add(this._searchField, BorderLayout.CENTER);
         panel.add(this._searchButton, BorderLayout.EAST);
 		
+		return panel;
+	}
+	
+	protected JPanel _createAddMorePanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+        panel.add(this._addMoreButton, BorderLayout.EAST);
 		return panel;
 	}
 	
