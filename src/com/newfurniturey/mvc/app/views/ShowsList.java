@@ -1,6 +1,7 @@
 package com.newfurniturey.mvc.app.views;
 
 import com.newfurniturey.mvc.app.View;
+import com.newfurniturey.mvc.app.models.table.ShowTable;
 import java.awt.BorderLayout;
 import java.util.Observable;
 import javax.swing.JButton;
@@ -11,6 +12,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class ShowsList extends View {
+	
+	protected ShowTable _dataTable;
 	
 	public ShowsList() {
 		super();
@@ -43,14 +46,12 @@ public class ShowsList extends View {
 		// @todo implement
 	}
 	
+	public void setShowList(ShowTable data) {
+		this._dataTable = data;
+	}
+	
 	protected JScrollPane _createDataTable() {
-		String columns[] = {"", "Name", "Rating", "Description"};
-		String data[][] = {
-			{ "", "Test", "5.0", "This is a test entry" },
-			{ "", "Second Test", "3.6", "This is a test entry" }
-		};
-		
-		JTable table = new JTable(data, columns);
+		JTable table = new JTable(_dataTable);
 		return new JScrollPane(table);
 	}
 	
