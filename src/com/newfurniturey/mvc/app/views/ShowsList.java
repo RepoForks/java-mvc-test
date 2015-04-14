@@ -77,6 +77,8 @@ public class ShowsList extends View {
 	}
 	
 	class VariableRowHeightRenderer extends DefaultTableCellRenderer {
+		private static final long serialVersionUID = -3160214609454807145L;
+		
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 			table.setRowHeight(row, ((ImageIcon)value).getIconHeight());
 			setIcon((ImageIcon)value);
