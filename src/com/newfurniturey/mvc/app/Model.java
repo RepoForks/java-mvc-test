@@ -8,8 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Observable;
 
-public abstract class Model {
+public abstract class Model extends Observable {
 	/**
 	 * The database connection to use.
 	 */
