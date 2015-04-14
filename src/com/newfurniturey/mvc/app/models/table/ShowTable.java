@@ -33,13 +33,17 @@ public class ShowTable extends AbstractTableModel {
 		return this._getColumnData((Show)data.get(row), col);
 	}
 
+	public Class<?> getColumnClass(int column) {
+		return getValueAt(0, column).getClass();
+	}
+
 	public boolean isCellEditable(int row, int col) {
 		return false;
 	}
 	
 	protected Object _getColumnData(Show show, int column) {
 		switch (column) {
-			case 0: return show.getImageUrl();
+			case 0: return show.getImage();
 			case 1: return show.getName();
 			case 2: return show.getRating();
 			case 3: return show.getDescription();
