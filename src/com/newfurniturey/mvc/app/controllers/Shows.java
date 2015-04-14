@@ -5,6 +5,9 @@ import com.newfurniturey.mvc.app.Controller;
 import com.newfurniturey.mvc.app.InvalidDatabaseException;
 import com.newfurniturey.mvc.app.Model;
 import com.newfurniturey.mvc.app.models.Show;
+import com.newfurniturey.mvc.app.View;
+import com.newfurniturey.mvc.app.views.ShowsList;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,6 +30,15 @@ public class Shows extends Controller {
 			System.out.println("\n\n=== findById ===");
 			Model show = (new Show(connection)).findById(3);
 			System.out.println("[show] " + ((Show)show).getName());
+			
+			// -------------
+			
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					View view = new ShowsList();
+					view.render().setVisible(true);
+				}
+			});
 			
 		} catch (InvalidDatabaseException e) {
 			System.out.println("invalid database =[");
