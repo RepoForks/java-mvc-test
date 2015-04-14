@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ShowTable extends AbstractTableModel {
+	private static final long serialVersionUID = 3094633615447716224L;
+	
 	private String[] columnNames = { "", "Name", "Rating", "Description" };
 	private List<Model> data;
 
